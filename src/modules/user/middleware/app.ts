@@ -42,13 +42,13 @@ export class UserMiddleware implements IMiddleware<Context, NextFunction> {
         const isIgnored = this.ignoreUrls.some(pattern =>
           this.utils.matchUrl(pattern, url)
         );
-        
+
         if (isIgnored) {
           // 忽略的URL直接放行,无需验证token
           await next();
           return;
         }
-        
+
         // 非忽略的URL需要验证token
         const token = ctx.get('Authorization');
         try {
@@ -62,7 +62,7 @@ export class UserMiddleware implements IMiddleware<Context, NextFunction> {
           ctx.status = 401;
           throw new CoolCommException('登录失效或无权限访问');
         }
-        
+
         if (!ctx.user) {
           ctx.status = 401;
           throw new CoolCommException('登录失效或无权限访问');
