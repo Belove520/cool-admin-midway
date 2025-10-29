@@ -13,6 +13,7 @@ export default {
   keys: '18672a0e-89f6-495d-8e18-f8c85149eb21',
   koa: {
     port: availablePort(8001),
+    globalPrefix: '/api', // 添加全局 API 前缀
   },
   // CORS 跨域配置
   cors: {
