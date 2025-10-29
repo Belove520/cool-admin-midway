@@ -1,5 +1,5 @@
 import { Provide, Inject, Post, Body } from '@midwayjs/core';
-import { CoolController, BaseController } from '@cool-midway/core';
+import { CoolController, BaseController, CoolTag, TagTypes } from '@cool-midway/core';
 import { MallUserService } from '../../service/user';
 
 @Provide()
@@ -13,6 +13,7 @@ export class AppMallUserController extends BaseController {
   @Inject()
   mallUserService: MallUserService;
 
+  @CoolTag(TagTypes.IGNORE_TOKEN)
   @Post('/login', { summary: 'User Login' })
   async userLogin(@Body() body: { phone: string; password: string }) {
     const { phone, password } = body;
@@ -21,6 +22,7 @@ export class AppMallUserController extends BaseController {
     return this.ok(result);
   }
 
+  @CoolTag(TagTypes.IGNORE_TOKEN)
   @Post('/register', { summary: 'User Register' })
   async userRegister(
     @Body() body: { phone: string; password: string; nickname?: string }
